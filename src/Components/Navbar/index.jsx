@@ -5,7 +5,7 @@ import { ShoppingCartContext } from "../../Context";
 
 
 const Navbar = () => {
-    const {count} =  useContext(ShoppingCartContext)
+    const {count,isShopingCarColor, setIsShopingCarColor} =  useContext(ShoppingCartContext)
     const activeStyle = 'underline underline-offset-4';
     return (
         <nav className="flex justify-between fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
@@ -67,7 +67,7 @@ const Navbar = () => {
                 </li>
                 <li>
                     <NavLink to='/my-account'
-                    className={({isActive})=> isActive ? activeStyle : undefined}>
+                    className={({isActive})=> isActive ? activeStyle : undefined}>como hacer con talwind que algo que este oculto se muestre
                         My Account
                     </NavLink>
                 </li>
@@ -78,8 +78,10 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li className="flex items-center">
+                    
                     <ShoppingCartIcon className="h-6 w-6"> </ShoppingCartIcon>
-                    <div>{count}</div>
+                   
+                    <span>{count}</span>
                 </li>
                 
             </ul>
