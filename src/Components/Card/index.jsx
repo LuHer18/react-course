@@ -18,8 +18,7 @@ const Card = ({data}) => {
         setCount(count + 1)
         setCartProducts([...cartProducts, productData])
         if (isProductDetailOpen){closeProductDetail()}
-        OpenCheckoutSideMenu()
-        console.log('Cart:', cartProducts )       
+        OpenCheckoutSideMenu()      
     }
 
     return(
