@@ -1,30 +1,45 @@
-import { useState, useEffect } from "react"
+import { useContext } from "react"
 import Layout from "../../Components/Layout"
 import Card from "../../Components/Card"
 import ProductDetail from "../../Components/ProductDetail"
+import { ShoppingCartContext } from "../../Context"
 
-const URL_API = 'https://fakestoreapi.com';
+
 
 function Home() {
-  const [items, setItems] = useState(null)
+  const { setSearchByTitle, filteredItems } = useContext(ShoppingCartContext)
 
-  useEffect(()=> {
-    fetch(`${URL_API}/products`)
-      .then(response => response.json())
-      .then(data => {setItems(data)})
-  }, [])
+  const renderView = () => {
+    if (filteredItems?.length > 0) {
+      return (
+        filteredItems?.map((item) => {
+          return <Card key={item.id} data={item} />
+        })
+      )
+    } else {
+      return (
+        <div className="flex items-center w-full h-full justify-center font-medium text-xl">
+          No hay coincidencias
+        </div>
+      )
+    }
+  }
 
   return (
     <Layout>
-      Home
-      <div className="grid gap-6 grid-cols-4 w-full max-w-screen-lg">
-      {
-        items?.map((item)=> {
-          return <Card key = {item.id} data = {item} />
-        })
-      }
+      <div className="flex w-80 items-center justify-center relative mb-4">
+        <h1 className="font-medium text-xl">Exclusive Products</h1>
       </div>
-      <ProductDetail/>      
+      <input
+        type="text"
+        placeholder="Search a product"
+        className="rounded-lg border border-black w-80 p-4 mb-4 focus:outline-none"
+        onChange={(e) => setSearchByTitle(e.target.value)}
+      />
+      <div className="grid gap-6 grid-cols-4 w-full max-w-screen-lg">
+        {renderView()}
+      </div>
+      <ProductDetail />
     </Layout>
   )
 }
